@@ -1,0 +1,59 @@
+.container-title {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-class {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-input {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container-text-input {
+    height: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-range-input {
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.all {
+    display: flex;
+    flex-direction:row;
+    flex-wrap: wrap;
+    border: 1px solid black;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+}
+
+/* Animation */
+.fade-enter, .fade-leave-to{
+    opacity: 0;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: all 1s ease-in-out;
+}

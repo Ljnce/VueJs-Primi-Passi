@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Ducati</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://kit.fontawesome.com/4cd7baf8bb.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+
+        <div id="app" class="container" :class"displayInput">
+            <div class="container-title">
+                <h1 :style="{ 'color':'red' }">DUCATI MONSTER</h1>
+            </div>
+            <div class="container-input">
+                <div class="container-text-input">
+                    <label for="formMax">Price</label>
+                    <input type="text" id="formMax" v-model="max">
+                </div>
+                <div class="container-range-input">
+                    <input type="range" min="0" max="9000" v-model="max">
+                </div>
+            </div>
+            <div class="all"
+            v-for="product in products">
+                <div class="container-min" v-if="product.price <= Number(max)">
+                    <h1>{{product.name}}</h1>
+                    <p>{{product.body}}</p>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12">
+                            <img class="img-fluid" :src="product.img" :alt="name">
+                        </div>
+                    </div>
+                    <h3>{{product.price}}€</h3>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="js/main.js" charset="utf-8"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+
+            var data = {
+                max : 9000,
+                products : [
+                    {
+                        "name" : "Ducati Monster 620",
+                        "body" : "The Ducati Monster a 620.",
+                        "img" : "https://img3.stcrm.it/images/299702/HOR_STD/1000x/swap.jpg",
+                        "price" : "7200"
+                    },
+                    {
+                        "name" : "Ducati Monster s2r",
+                        "body" : "The Ducati Monster is a s2r",
+                        "img" : "https://storage.edidomus.it/dueruote/nuovo/850/lat-MonsterS2R.jpg",
+                        "price" : "8000"
+                    },
+                    {
+                        "name" : "Ducati Monster s4r",
+                        "body" : "La S4R è l'ultima evoluzione del mostro Ducati. Ha il cuore della 996 per correre ancora più forte e nuove sospensioni per essere più competitiva in pista. E chi rimpiange il monobraccio è stato accontentato. Esuberante nell'erogazione, sa dare soddisfazione nei percorsi guidati.",
+                        "img" : "https://storage.edidomus.it/dueruote/nuovo/850/lat-monster-s4rs-tricolore.jpg",
+                        "price" : "9000"
+                    }
+                ]
+            }
+            var app = new Vue ({
+                el: '#app',
+                data: data
+            });
+
+        </script>
+    </body>
+</html>

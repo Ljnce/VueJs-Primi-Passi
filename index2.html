@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Products VueJs API</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://kit.fontawesome.com/4cd7baf8bb.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/1.2.3/velocity.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+
+        <div id="app" class="container">
+            <nav>
+                <!-- Mi aumenta al click -->
+                <div class="container-fixed" :style="{ 'position':'fixed', 'height':'40px', 'width':'100vw' }"
+                v-if="cart.lenght > 0">
+                    <b>&#9745; Cart:</b>
+                    <span badge badge-pill badge-success>{{cart.lenght}}</span>
+                </div>
+            </nav>
+            <div class="container-title">
+                <h1 :style="{ 'color':'red' }">Style</h1>
+            </div>
+            <!-- Check input -->
+            <!-- <div class="checkbox" per check view/no view>
+                <label><input type="checkbox" v-model="checked">Select a price</label>
+            </div> -->
+            <div class="button-class">
+                <button type="button" @click="viewStatus = !viewStatus" name="button" :style="{ 'height':'50px', 'width':'100px' }"> Ricerca per prezzo </button>
+            </div>
+            <!-- Se check, non li mostro -->
+            <!-- <div class="container-check"  v-if="checked"> -->
+
+            <transition name="fade">
+                <div v-if="viewStatus" class=" animate__animated animate__fadeInDownBig">
+                    <!-- <div class="container-input" :class="viewState"> -->
+                        <!-- Input aumenta -->
+                        <div class="container-text-input">
+                            <label for="formMax">Price</label>
+                            <input type="text" id="formMax" v-model="max">
+                        </div>
+                        <!-- Input range -->
+                        <div class="container-range-input">
+                            <input type="range" min="0" max="100" v-model="max">
+                        </div>
+                        <!-- </div> -->
+                </div>
+            </transition>
+
+            <!-- </div> -->
+
+            <!-- Ciclo il tutto -->
+            <transition-group name="fade">
+                <div class="all"
+                v-for="(product, key) in products"
+                :key="product.id"
+                v-if="product.price <= Number(max)">
+                <!-- Bottone + mi push dentro la cart [] il mio product -->
+                    <div class="card">
+                        <h1 :style="{ 'font-size': h1size + 'px'}">{{product.name}}</h1>
+                        <h1>Code number #{{product.id}}</h1>
+                        <p>{{product.description}}</p>
+                        <img class="img-fluid" :src="product.image" :alt="name">
+                        <h3>{{product.price}}€</h3>
+                        <button type="button" class="btn btn-info" :style="{ 'height':'40px' }"
+                        v-on:click="cart.push(product)"> + </button>
+                    </div>
+                </div>
+            </transition-group>
+        </div>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="js/main.js" charset="utf-8"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+
+            var app = new Vue ({
+                el: '#app',
+                data: {
+                    max: 100,
+                    products: null,
+                    cart: [],
+                    viewStatus: false,
+                    h1size: 30
+                    // Mostro non mostro
+                    // checked: true
+                },
+                computed: {
+                    // Ritornami questo valore dentro questa :class, e in base al true/false mostrami
+                    viewState: function() {
+                        return this.viewStatus ? 'd-flex' : 'd-none'
+                    }
+                },
+                // Chiamata ad api
+                mounted: function() {
+                    fetch('http://hplussport.com/api/products/order/price')
+                    .then(response => response.json())
+                    .then(data => {
+                        this.products = data;
+                    })
+                },
+            });
+
+        </script>
+    </body>
+</html>

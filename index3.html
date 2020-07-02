@@ -7,15 +7,21 @@
         <script src="https://kit.fontawesome.com/4cd7baf8bb.js" crossorigin="anonymous"></script>
         <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.3/handlebars.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js" charset="utf-8"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/it.js" charset="utf-8"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
 
         <div id="app" class="container">
-            <div class="all"
-            v-for="sale in sales">
+            <div class="container"
+            :style=" { 'text-align' : 'center' } "
+            v-for="sale in sales"
+            :key="sale.id">
                 <h1>{{sale.salesman}}</h1>
+                <h2>{{sale.amount}}</h2>
+                <p>{{formattedDate(sale.date)}}</p>
             </div>
         </div>
 
@@ -34,6 +40,12 @@
                     max: 100,
                     sales: null,
                     cart: []
+                },
+                methods: {
+                    formattedDate: function (date) {
+                        return moment(new Date(date))
+                        .format("DD-MM");
+                    }
                 },
                 // Chiamata ad api
                 mounted: function() {

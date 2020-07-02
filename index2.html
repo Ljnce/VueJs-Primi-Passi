@@ -24,14 +24,14 @@
                 </div>
             </nav>
             <div class="container-title">
-                <h1 :style="{ 'color':'red' }">Style</h1>
+                <h1 :style="{ 'color':'red', 'font-style':'oblique' }"> BoolBuy </h1>
             </div>
             <!-- Check input -->
             <!-- <div class="checkbox" per check view/no view>
                 <label><input type="checkbox" v-model="checked">Select a price</label>
             </div> -->
             <div class="button-class">
-                <button type="button" @click="viewStatus = !viewStatus" name="button" :style="{ 'height':'50px', 'width':'100px' }"> Ricerca per prezzo </button>
+                <button type="button" @click="viewStatus = !viewStatus" name="button" :style="{ 'height':'50px', 'width':'100px' }"> Select your price </button>
             </div>
             <!-- Se check, non li mostro -->
             <!-- <div class="container-check"  v-if="checked"> -->
@@ -56,19 +56,23 @@
 
             <!-- Ciclo il tutto -->
             <transition-group name="fade">
-                <div class="all"
+                <div class="cards"
                 v-for="(product, key) in products"
                 :key="product.id"
                 v-if="product.price <= Number(max)">
                 <!-- Bottone + mi push dentro la cart [] il mio product -->
                     <div class="card">
-                        <h1 :style="{ 'font-size': h1size + 'px'}">{{product.name}}</h1>
-                        <h1>Code number #{{product.id}}</h1>
-                        <p>{{product.description}}</p>
-                        <img class="img-fluid" :src="product.image" :alt="name">
-                        <h3>{{product.price}}€</h3>
-                        <button type="button" class="btn btn-info" :style="{ 'height':'40px' }"
-                        v-on:click="cart.push(product)"> + </button>
+                        <div class="product-image">
+                            <img class="img-fluid" :src="product.image" :alt="name">
+                        </div>
+                        <div class="product-text">
+                            <h1 :style="{ 'font-size': h1size + 'px'}">{{product.name}}</h1>
+                            <h4 :style="{ 'color': '#999999'}">Code number #{{product.id}}</h4>
+                            <p>{{product.description}}</p>
+                            <h3>{{product.price}}€</h3>
+                            <button type="button" class="btn btn-outline-success"
+                            v-on:click="cart.push(product)"> + </button>
+                        </div>
                     </div>
                 </div>
             </transition-group>
@@ -90,7 +94,7 @@
                     products: null,
                     cart: [],
                     viewStatus: false,
-                    h1size: 30
+                    h1size: 35
                     // Mostro non mostro
                     // checked: true
                 },
